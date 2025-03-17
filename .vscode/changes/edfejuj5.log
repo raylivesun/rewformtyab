@@ -1,0 +1,19 @@
+:pinned:  BIOS Code Revamp & Additions
+The old script used a preset, to modify your bios, which also means that it tried to import a lot of values, which don't even exist etc.. It now directly modifies your nvram directly without using any preset.
+
+New Features:
+You're now able to only use single tweaks, as the basic preset, which got applied by default before is now an option
+Now works with your own nvram and always changes all dublications, no matter how many there are
+Only imports existing and modified values
+Less waiting time
+Detection of settings a lot more accurate
+Settings - more got added:
+Intel: ~630 without any dublications - from 47 to 54 options
+AMD: ~560 without any dublications - from 44 to 51 options
+UI improvements
+List now has two columns
+Added the log message
+...
+And much more improvements, which you won't notice
+
+Preview:
