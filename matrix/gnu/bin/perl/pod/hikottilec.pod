@@ -1,0 +1,282 @@
+#!/usr/bin/perl
+=head Name
+    characteristic_function_negative_binomial.pl
+=cut
+
+# Characteristic function of negative binomial distribution
+# Parameters:
+#   n - number of successes (positive integer)
+#   p - probability of success (between 0 and 1)
+#   t - point at which to evaluate the function
+use Math::Complex;
+
+sub characteristic_function_negative_binomial {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Formula: (p/(1-(1-p)*exp(i*t)))^n
+    my $numerator = $p ** $n;
+    my $denominator = (1 - (1-$p) * (cos($t) + sin($t)*i)) ** $n;
+    
+    return $numerator / $denominator;
+}
+
+=head Description
+    Computes the characteristic function of the negative binomial distribution
+    with parameters n (number of successes) and p (probability of success)
+    evaluated at point t.
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Formula: (p/(1-(1-p)*exp(i*t)))^n
+    my $numerator = $p ** $n;
+    my $denominator = (1 - (1 - $p) * (cos($t) + sin($t) * i)) ** $n;
+    
+    return $numerator / $denominator;
+}
+=cut
+
+use Math::Complex;
+
+sub characteristic_function_negative_binomial {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it) = cos(t) + i*sin(t)
+    my $exp_it = cos($t) + sin($t)*i;
+    
+    # Calculate (p/(1-(1-p)*e^(it)))^n directly
+    my $numerator = $p;
+    my $denominator = 1 - (1-$p) * $exp_it;
+    my $result = ($numerator/$denominator) ** $n;
+    
+    return $result;
+}
+
+sub characteristic_function_negative_binomial {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it) = cos(t) + i*sin(t)
+    my $exp_it = cos($t) + sin($t)*i;
+    
+    # Calculate (p/(1-(1-p)*e^(it)))^n
+    my $numerator = $p;
+    my $denominator = 1 - (1-$p) * $exp_it;
+    my $result = ($numerator/$denominator) ** $n;
+    
+    return $result;
+}
+
+sub characteristic_function_negative_binomial_alt {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it)
+    my $exp_it = exp(i * $t);
+    
+    # Calculate e^(it)(p-1) + 1
+    my $inner = $exp_it * ($p - 1) + 1;
+    
+    # Calculate arg(e^(it)(p-1) + 1)
+    my $arg = arg($inner);
+    
+    # Calculate floor((arg + π)/(2π))
+    my $floor_term = floor(($arg + pi)/(2 * pi));
+    
+    # Calculate exponential term
+    my $exp_term = exp(2 * i * pi * $n * $floor_term);
+    
+    # Calculate main term p^n * (1 + (p-1)e^(it))^(-n)
+    my $main_term = ($p ** $n) * ((1 + ($p - 1) * $exp_it) ** (-$n));
+    
+    return $main_term * $exp_term;
+}
+
+sub characteristic_function_negative_binomial {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it)
+    my $exp_it = exp(i * $t);
+    
+    # Calculate e^(it)(p-1) + 1
+    my $inner = $exp_it * ($p - 1) + 1;
+    
+    # Calculate arg(e^(it)(p-1) + 1)
+    my $arg = arg($inner);
+    
+    # Calculate floor((arg + π)/(2π))
+    my $floor_term = floor(($arg + pi)/(2 * pi));
+    
+    # Calculate exponential term
+    my $exp_term = exp(2 * i * pi * $n * $floor_term);
+    
+    # Calculate main term p^n * (1 + (p-1)e^(it))^(-n)
+    my $main_term = ($p ** $n) * ((1 + ($p - 1) * $exp_it) ** (-$n));
+    
+    return $main_term * $exp_term;
+}
+
+sub characteristic_function_negative_binomial_simplified {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it)
+    my $exp_it = exp(i * $t);
+    
+    # Calculate simplified form: p^n * (1 - (1-p)*e^(it))^(-n)
+    my $result = ($p ** $n) * ((1 - (1-$p) * $exp_it) ** (-$n));
+    
+    return $result;
+}
+
+sub characteristic_function_negative_binomial_mathematica {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it)
+    my $exp_it = exp(i * $t);
+    
+    # Calculate 1 + e^(it)(p-1)
+    my $inner = 1 + $exp_it * ($p - 1);
+    
+    # Calculate arg(1 + e^(it)(p-1))
+    my $arg = arg($inner);
+    
+    # Calculate floor((arg + π)/(2π))
+    my $floor_term = floor(($arg + pi)/(2 * pi));
+    
+    # Calculate e^(2πin*floor_term)
+    my $exp_term = exp(2 * i * pi * $n * $floor_term);
+    
+    # Calculate p^n/(1 + e^(it)(p-1))^n
+    my $main_term = ($p ** $n) / ($inner ** $n);
+    
+    return $exp_term * $main_term;
+}
+
+# Calculates the derivative of the characteristic function with respect to p
+sub derivative_characteristic_function_p {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it)
+    my $exp_it = exp(i * $t);
+    
+    # Calculate (1 - (1-p)*e^(it))
+    my $denominator = 1 - (1-$p) * $exp_it;
+    
+    # Calculate derivative using chain rule and power rule:
+    # d/dp[(p/(1-(1-p)*e^(it)))^n] = 
+    # n * (p/(1-(1-p)*e^(it)))^(n-1) * ((1-(1-p)*e^(it)) - p*e^(it))/(1-(1-p)*e^(it))^2
+    
+    my $base = $p/$denominator;
+    my $power = $n-1;
+    my $numerator = $denominator + $p * $exp_it;
+    my $denom_squared = $denominator * $denominator;
+    
+    my $derivative = $n * ($base ** $power) * ($numerator/$denom_squared);
+    
+    return $derivative;
+}
+
+# Calculates the derivative of the characteristic function with respect to p
+sub derivative_characteristic_function_p {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it)
+    my $exp_it = exp(i * $t);
+    
+    # Calculate (1 - (1-p)*e^(it))
+    my $denominator = 1 - (1-$p) * $exp_it;
+    
+    # Calculate derivative using chain rule and power rule:
+    # d/dp[(p/(1-(1-p)*e^(it)))^n] = 
+    # n * (p/(1-(1-p)*e^(it)))^(n-1) * ((1-(1-p)*e^(it)) - p*e^(it))/(1-(1-p)*e^(it))^2
+    
+    my $base = $p/$denominator;
+    my $power = $n-1;
+    my $numerator = $denominator + $p * $exp_it;
+    my $denom_squared = $denominator * $denominator;
+    
+    my $derivative = $n * ($base ** $power) * ($numerator/$denom_squared);
+    
+    return $derivative;
+}
+
+
+use Math::Complex;
+
+sub characteristic_function_negative_binomial {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it)
+    my $exp_it = exp(i * $t);
+    
+    # Calculate simplified form: p^n * (1 - (1-p)*e^(it))^(-n)
+    my $result = ($p ** $n) * ((1 - (1-$p) * $exp_it) ** (-$n));
+    
+    return $result;
+}
+
+sub derivative_characteristic_function_p {
+    my ($n, $p, $t) = @_;
+    
+    # Validate parameters
+    die "n must be positive" if $n <= 0;
+    die "p must be between 0 and 1" if $p <= 0 || $p >= 1;
+    
+    # Calculate e^(it)
+    my $exp_it = exp(i * $t);
+    
+    # Calculate (1 - (1-p)*e^(it))
+    my $denominator = 1 - (1-$p) * $exp_it;
+    
+    # Calculate derivative using chain rule and power rule:
+    # d/dp[(p/(1-(1-p)*e^(it)))^n] = 
+    # n * (p/(1-(1-p)*e^(it)))^(n-1) * ((1-(1-p)*e^(it)) - p*e^(it))/(1-(1-p)*e^(it))^2
+    
+    my $base = $p/$denominator;
+    my $power = $n-1;
+    my $numerator = $denominator + $p * $exp_it;
+    my $denom_squared = $denominator * $denominator;
+    
+    my $derivative = $n * ($base ** $power) * ($numerator/$denom_squared);
+    
+    return $derivative;
+}
